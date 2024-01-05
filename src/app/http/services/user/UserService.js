@@ -46,6 +46,26 @@ class UserService {
    *
    * @return Response
    */
+  validatePhone = async (request) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await user.findOne({ 
+          where: {
+            phone: request.body.phone
+          }
+        });
+        resolve(result);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+  
+  /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
   validateEmailOrPhone = async (request) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -224,7 +244,7 @@ class UserService {
             "to": [
               {
                 "name": `${userData.firstname} ${userData.lastname}`,
-                "email": email.toLowerCase()
+                "email": userData.email
               }
             ]
           }
@@ -719,7 +739,7 @@ class UserService {
             narration: 'Withdrawal initiated',
             status: 'pending',
           });
-
+          
           /** Send SMS */
           const msg = "Hello Admin! A user initiated a withdrawal. Please attend to it. Thanks";
           await axios.post(`https://account.kudisms.net/api/?username=hammedadewale3366@gmail.com&password=Patriciaogechi@@0&message=${msg}&sender=BitWay.ng&mobiles=${'08069936564'}`);

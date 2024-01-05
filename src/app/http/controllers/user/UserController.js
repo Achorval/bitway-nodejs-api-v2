@@ -41,6 +41,16 @@ class UserController {
           message: 'Email record already in use.'
         });
       };
+
+      /** Check if Phone Number Exist */
+      const phoneExist = await this.userService.validatePhone(request);
+      if (phoneExist) {
+        return response.status(400).send({
+          status: 'Error',
+          message: 'Phone number already in use.'
+        });
+      };
+
       /** Create a new user */
       const userData = await this.userService.addNewUser(request);
 
@@ -54,7 +64,7 @@ class UserController {
         status: 'Success',
         message: 'Account created successfully!'
       });
-    } catch (error) {
+    } catch (error) {   
       return response.status(400).send({
         error: error,
         status: 'error',
@@ -119,7 +129,7 @@ class UserController {
         status: 'Success',
         message: 'Login authentication was successful!'
       });
-    } catch (error) {  console.log(error)
+    } catch (error) { 
       return response.status(500).send({
         status: 'Error',
         message: "An error occured trying to log in."
@@ -265,38 +275,6 @@ class UserController {
       }
       /**Send Verification Email */
       await this.userService.SendVerificationEmail(userData);
-
-      // ** Send Verification Email
-      // const sendPulseData = await thirdParty.sendPulseAuthorization();
-      // await axios.post(`https://api.sendpulse.com/smtp/emails`, {
-      //   "email": {
-      //     "subject": "Verify Your Email Address",
-      //     "template": {
-      //       "id": 292161,
-      //       "variables": {
-      //         "firstname": `${userData.firstname}`,
-      //         "lastname": `${userData.lastname}`,
-      //         "verificationUrl": `https://bitway.ng/verify-email/` + accessToken(userData.id)
-      //       }
-      //     },
-      //     "from": {
-      //       "name": "Bitway.ng",
-      //       "email": "support@bitway.ng"
-      //     },
-      //     "to": [
-      //       {
-      //         "name": `${userData.firstname} ${userData.lastname}`,
-      //         "email": userData.email
-      //       }
-      //     ]
-      //   }
-      // } , {
-      //   headers: {
-      //     'Authorization': `Bearer ${sendPulseData.access_token}`,
-      //     'content-type': 'application/json'
-      //   }
-      // });
-
       return response.status(200).send({
         status: 'success',
         message: 'Activation link has been sent to Your email!'
@@ -507,7 +485,7 @@ class UserController {
         status: 'Success',
         message: 'Balance retrieved successfully!',
       });
-    } catch (error) {  console.log(error)
+    } catch (error) { 
       return response.status(400).send({
         status: 'error',
         message: 'An Error Occured, try again later!'
@@ -685,7 +663,7 @@ class UserController {
         status: 'Success',
         message: 'Pin updated successfuly!'
       });
-    } catch (error) {   console.log(error)
+    } catch (error) {  
       return response.status(400).send({
         status: 'Error',
         message: 'An Error Occured, try again later!'
@@ -782,7 +760,7 @@ class UserController {
     try {
       // ** Validation Rules
       let validation = new Validator(request.body, {
-        service: 'required|string',
+        service: 'required|integer',
         amount: 'required|string',
         bankAccount: 'required|string',
         pin: 'required|string'

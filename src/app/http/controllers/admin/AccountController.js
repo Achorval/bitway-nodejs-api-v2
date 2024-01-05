@@ -63,7 +63,7 @@ class AccountController {
         status: 'Success',
         message: 'Login authentication was successful!'
       });
-    } catch (error) {  console.log(error)
+    } catch (error) {  
       return response.status(500).send({
         status: 'Error',
         message: "An error occured trying to log in."
@@ -104,7 +104,7 @@ class AccountController {
         status: 'Success',
         message: 'Admin record retrieved successful!'
       });
-    } catch (error) {  console.log(error)
+    } catch (error) { 
       return response.status(400).send({
         status: 'Error',
         message: 'An Error Occured, try again later'
@@ -171,7 +171,7 @@ class AccountController {
         status: 'Success',
         message: `Customer account ${request.body.blocked ? 'disabled' : 'enabled'} successfully!`
       });
-    } catch (error) {   console.log(error)
+    } catch (error) {   
       return response.status(400).send({
         status: 'Error',
         message: 'An Error Occured, try again later'
@@ -223,7 +223,7 @@ class AccountController {
         status: 'Success',
         message: 'Customer wallet credited successfully!'
       });
-    } catch (error) {    console.log(error)
+    } catch (error) {   
       return response.status(400).send({
         status: 'Error',
         message: 'An Error Occured, try again later'
@@ -509,7 +509,7 @@ class AccountController {
         status: 'success',
         message: 'Transaction status updated successfully!'
       });
-    } catch (error) {  console.log(error)
+    } catch (error) {  
       return response.status(400).send({
         status: 'error',
         message: 'An Error Occured, try again later!'

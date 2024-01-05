@@ -1,5 +1,6 @@
-const { Op, Sequelize } = require('sequelize');
+const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const { Op, Sequelize } = require('sequelize');
 const config = require('../../../../utils/constant');
 const { slug } = require('../../../../utils/functions');
 const { 
@@ -691,6 +692,7 @@ class AccountService {
         }
         resolve(false);
       } catch (e) {
+        console.log(e)
         reject(e);
       }
     });
